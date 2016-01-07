@@ -1,0 +1,7 @@
+#gitignore by Andrew Reid East
+#removes files with database passwords and connection data
+
+weddingInclude\dbdata.inc
+weddingInclude/dbdata.inc
+weddingInclude\emailDetails.inc
+weddingInclude/emailDetails.inc

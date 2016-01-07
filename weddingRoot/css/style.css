@@ -1,0 +1,969 @@
+<?php header("Content-type: text/css; charset: UTF-8");
+//http://css-tricks.com/snippets/php/intelligent-php-cache-control/
+
+//get the last-modified-date of this very file
+$lastModified=filemtime(__FILE__);
+//get a unique hash of this file (etag)
+$etagFile = md5_file(__FILE__);
+//get the HTTP_IF_MODIFIED_SINCE header if set
+$ifModifiedSince=(isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) ? $_SERVER['HTTP_IF_MODIFIED_SINCE'] : false);
+//get the HTTP_IF_NONE_MATCH header if set (etag: unique file hash)
+$etagHeader=(isset($_SERVER['HTTP_IF_NONE_MATCH']) ? trim($_SERVER['HTTP_IF_NONE_MATCH']) : false);
+
+//set last-modified header
+header("Last-Modified: ".gmdate("D, d M Y H:i:s", $lastModified)." GMT");
+//set etag-header
+header("Etag: $etagFile");
+//make sure caching is turned on
+header('Cache-Control: public');
+
+//check if page has changed. If not, send 304 and exit
+if (@strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE'])==$lastModified || $etagHeader == $etagFile)
+{
+       header("HTTP/1.1 304 Not Modified");
+       exit;
+}
+
+//your normal code
+echo "/* This page was last modified: ".date("d.m.Y H:i:s",time()) . "*/";
+
+$pageSizeMid = 750; // page size in px where nav will "break" from sidebar
+$pageSizeTiny = 490; //page size in px where the tree will move to the background
+
+
+/* 
+TYPEFACES
+font-family: 'Niconne', cursive;
+font-family: 'Cantarell', sans-serif;
+font-family: 'Open Sans Condensed', sans-serif; */
+
+
+/* COLOURS */
+$colorRainforest = '#4B5525'; //green
+$colorDesert = '#C1B098';     //tan
+$colorCascades = '#7A9DB0';   //blue
+
+$colorDimRainforest = '#838E56';
+$colorDimDesert = '#CCC5BA';
+$colorDimCascades = '#A6B6Be';
+
+
+?>
+
+/*******************************************************************/
+/**************************   Header  ******************************/
+/*******************************************************************/
+header
+{
+  /* border: 5px solid <?php echo $var; ?>; */
+  margin-top:50px;
+  /* width:920px; */
+}
+header .names
+{
+  /* margin:0 auto; */
+  width:100%;
+  /* width:920px; */
+  /* text-align:center; */
+  
+  /* width:650px; */
+  /*   margin-left:80px;
+  margin-right:auto; */
+  margin-top:0px;
+  margin-bottom:0px;
+  
+/*   margin-left:200px;
+  margin-right:200px; */
+  
+/*   margin-left:auto;
+  margin-right:auto; */
+}
+.names h1
+{
+  font-family: 'Tangerine', cursive;
+  font-weight:700;
+  color: <?php echo $colorRainforest; ?>;
+  text-shadow: 2px 2px 4px #736046;
+  filter: dropshadow(color=#736046, offx=2, offy=2);
+  margin-top:0px;
+  margin-bottom:0px;
+/*   margin-left:100px;
+  margin-right:auto; */
+  
+/*   margin-left:auto;
+  margin-right:auto; */
+  
+  text-align:center;
+}
+.names hr
+{
+  width:auto;
+  margin-top:0px;
+}
+
+@media all and (min-width:<?php echo $pageSizeTiny; ?>px)
+{
+  header
+  {
+    margin-right:33%;
+  }
+}
+@media all and (max-width:<?php echo ($pageSizeTiny - 1); ?>px)
+{
+  header
+  {
+    /* margin-right:34%; */
+  }
+}
+@media all and (min-width:<?php echo $pageSizeMid; ?>px)
+{
+  header
+  {
+    margin-left:200px;
+    max-width:650px;
+  }
+  header .names
+  {
+    font-size:250%;
+  }
+}
+@media all and (max-width:<?php echo ($pageSizeMid - 1); ?>px)
+{
+  header
+  {
+    margin-left:0px;
+    /* max-width:650px; */
+  }
+  header .names
+  {
+    font-size:150%;
+  }
+}
+
+
+
+
+/*******************************************************************/
+/****************************   Nav  *******************************/
+/*******************************************************************/
+
+  nav
+  {
+    float:left;
+    background:url('../resources/page_resources/nav_borders_top.png') no-repeat; 
+    background-size: contain;
+    width:200px;
+    padding-top:30px;
+    text-align:center;
+    /* padding-bottom:100%; */
+  }
+
+  nav #nav_bottom_image
+  {
+    background:url('../resources/page_resources/nav_borders_bottom.png') no-repeat;
+    background-size:contain;
+    width:200px;
+    height:50px;
+    margin-top:-8px;
+  }
+  nav ul
+  {
+    list-style:none;
+    /* margin-top:35px;*/
+    margin-bottom:0px;
+    margin:0;
+    padding:0;
+  }
+
+  nav li a
+  {
+    display:block;
+    margin-top:5px;
+    /* width:200px; */
+    text-align:center;
+    font-family: 'Tangerine', sans-serif;
+    text-shadow: 1px 1px 2px #736046;
+    /*font-family: 'Open Sans Condensed', sans-serif;*/
+    color:<?php echo $colorRainforest; ?>;
+    text-decoration:none;
+    border:0px;
+    font-weight:700;
+    /*font-size:1.5em;*/
+    font-size:1.75em;
+    height:33px;
+  }
+
+  nav li a:hover
+  {
+    border-bottom:1px dotted <?php echo $colorRainforest; ?>;
+    height:32px;
+  }
+  
+  /* media-query: change this to no bg, no width, no height, and display:inline */
+  div.floralDivider
+  {
+    background:url('../resources/page_resources/floralDividerStyle.png') no-repeat;
+  /*   width:120px;
+    height:37px; */  
+    background-size: contain;
+    width:90px;
+    height:28px;
+  /*   width:70px;
+    height:22.2px; */
+/*     margin-left:auto;
+    margin-right:auto; */
+    margin: 6px auto;
+  }
+ 
+
+@media all and (min-width:<?php echo $pageSizeMid; ?>px)
+{
+  nav
+  {
+    float:left;
+  }
+}
+@media all and (max-width:<?php echo ($pageSizeMid - 1); ?>px)
+{
+  nav
+  {
+    /* float:left; */
+    float:none;
+    /*     margin-left:auto;
+    margin-right:auto; */
+    margin-right:34%;
+    margin-left:20%;
+  }
+}
+
+
+
+
+/* http://css-tricks.com/snippets/css/flip-an-image/ */
+.mirror
+{
+  -moz-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  filter: FlipH;
+  -ms-filter: "FlipH";
+}
+
+
+
+
+
+/*******************************************************************/
+/**************************   Body  ********************************/
+/*******************************************************************/
+div.mainContent
+{
+/*   float:left; */
+
+/*   display:inline-block;
+  vertical-align:top; */
+
+  /* border:5px solid orange; */
+  
+  /* width:920px; */
+  /* min-width:520px; */
+
+  /* margin:0 auto; */
+  margin-top:0;
+  margin-bottom:0;
+  
+  
+  /* margin-right:auto; */
+  
+  position:relative;
+}
+
+@media all and (min-width:<?php echo $pageSizeTiny; ?>px)
+{
+  div.mainContent
+  {
+    margin-right:34%;
+  }
+}
+@media all and (max-width:<?php echo ($pageSizeTiny - 1); ?>px)
+{
+  div.mainContent
+  {
+    /* margin-right:34%; */
+  }
+}
+@media all and (min-width:<?php echo $pageSizeMid; ?>px)
+{
+  div.mainContent
+  {
+    margin-left:225px;
+    max-width:650px;
+  }
+}
+@media all and (max-width:<?php echo ($pageSizeMid - 1); ?>px)
+{
+  div.mainContent
+  {
+  margin-left:0px;
+  }
+}
+
+/* @media all and (max-width:849px) and (min-width:200px)
+{
+  div.mainContent
+    {
+    border:5px solid orange;
+    /* margin-right:0px; *
+  }
+}
+@media all and (min-width:850px)
+{
+  div.mainContent
+    {
+    border:5px solid blue;
+    /* margin-right:200px; *
+    /* margin-right:auto; *
+  }
+} */
+
+.bodyContent
+{
+  /* border:5px solid purple; */
+
+  min-height:540px;
+  /* width:650px; */
+  /* margin-left:80px; */
+  /* margin-right:auto; */
+  margin-top:20px;
+  margin-bottom:0px;
+}
+
+.bodyContent p
+{
+  /* line-height:1.35em; */
+  /*text-indent:25px;*/
+}
+
+/* .bodyContent ol, .bodyContent ul
+{
+  font-weight:bold;
+} */
+
+
+
+/*******************************************************************/
+/***************************   Tree  *******************************/
+/*******************************************************************/
+
+
+@media all and (min-width:<?php echo $pageSizeTiny; ?>px)
+{
+  #treeBackground
+  {
+    width: 200px;
+    position:fixed;
+    /* left:0px; */
+    /* right:200px; */
+    right:35%;
+    margin-right:-200px;
+    top:0px;
+    z-index:-100;
+  }
+  #fullTree
+  {
+    position:absolute;
+    /* left:800px; */
+    /* top:-50px; */
+    /* float:right; */
+  }
+}
+@media all and (max-width:<?php echo ($pageSizeTiny - 1); ?>px)
+{
+  #treeBackground
+  {
+    /* width: 200px; */
+    position:fixed;
+    /* left:0px; */
+    /* right:200px; */
+    /* right:35%; */
+    /* margin-right:-200px; */
+    top:0px;
+    z-index:-100;
+    
+    /* margin:20px; */
+  }
+  #fullTree
+  {
+    /* position:absolute; */
+    /* left:800px; */
+    /* top:-50px; */
+    /* float:right; */
+  }
+  #fullTree > img
+  {
+    width:100%;
+    opacity:0.5;
+  }
+}
+
+
+
+
+
+/* aside.sideImage #plain_tree
+{
+  /* position:fixed; * /
+  float:right;
+  /* margin-top:-145px; * /
+  margin-top:-145px;
+  /* opacity:1; * /
+  /* margin-right:15px; * /
+  margin-right:15px;
+  z-index:-3;
+}
+aside.sideImage #leaves
+{
+  /* position:fixed; * /
+  float:right;
+  /* margin-top:-170px; * /
+  margin-top:-200px;
+  margin-right:-30px;
+  z-index:-2;
+} */
+
+/*******************************************************************/
+/**************************   Footer  ******************************/
+/*******************************************************************/
+
+footer
+{
+  /* width:920px; */
+  margin:0 auto;
+}
+
+footer .copyrightFooter
+{
+  /* width:650px; */
+  /* margin:0 auto 0 80px; */
+}
+
+footer .copyrightFooter p
+{
+  /* still not centering correctly w/ margins: text-align:center; */
+  /*margin-left:100px;
+  margin-right:auto;*/
+  text-align:center;
+  font-size:0.6em;
+}
+
+footer .copyrightFooter hr
+{
+  margin-top:2em;
+  /* width:600px; */
+  /* margin-left:200px; */
+}
+
+footer .copyrightFooter a
+{
+  color: #777;
+}
+
+
+
+
+
+/*******************************************************************/
+/***********************   Custom Elements   ***********************/
+/*******************************************************************/
+
+
+
+/* make engagedPatioView.jpg then, make it a secret link around the castle. with a nice, flashing & obvious border */
+/* make iamgeNotFound.jpg sad pants? */
+/* change header margin-top from 50px to ~30px */
+/* replace in all files the 3x<?php?> tags with one (to prevent session_start() problems?) */
+/* replace page_title with pageTitle
+/* make page title need dynamic size?? */
+/* displayImage.php?image=reference. make mini "database" within image.php: reference ==> src and title */
+/* add border to pictureBox. change to galleryBox. apply universal style to imagebox/pictureBox... */
+/* engagement photoshoot gallery */
+/* can i do dynamic variables in CSS through PHP??? */
+/* make quest boxes smaller font? */
+/* make body stop wrapping around nav when resized narrow */
+
+/* media query ideas:
+extremely small screen (iPhone):
+tree goes completely behind text
+changes to 0.5 opacity
+nav becomes horizontal
+nav { } flip vertical
+
+medium screen
+header & footer are centered, no off-center
+nav becomes horizonal?
+
+large screen
+increase spacing and margins
+*/
+
+html { 
+  /* http://css-tricks.com/perfect-full-page-background-image/ */
+/*   -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover; */
+  /* background: url('../resources/page_resources/background.png') no-repeat center center fixed;  */
+  /* background: url('../resources/page_resources/weavegrid16X.png') no-repeat center center fixed;  */
+  /* background: url('../resources/page_resources/weavegrid2X.png') fixed; */
+  background: url('../resources/page_resources/lightpaperfibers2x.png') fixed;
+
+}
+
+body
+{
+  /* background:url('../resources/page_resources/background.png') fixed; */
+  font-family: 'Gentium Basic', serif;
+  color: <?php echo $colorRainforest; ?>; /* Rainforest: #4B5525;*/
+}
+
+a
+{
+  color: <?php echo $colorCascades; ?>; /* Cascades:#7A9DB0; */
+  text-decoration:none;
+  border-bottom:1px <?php echo $colorRainforest; ?> dotted; /* Rainforest: #4B5525;*/
+}
+
+/* 
+a[rel="external"]:after
+{
+  content:" "url("../resources/page_resources/externalLinkArrow.png");
+} */
+a[rel="external"]
+{
+  padding-right: 12px;
+  background: url("../resources/page_resources/externalLinkArrow.png") center right no-repeat;
+}
+
+a.hidden
+{
+  color: <?php echo $colorRainforest; ?>;
+  text-decoration:none; border:0px;
+}
+/* Rainforest: #4B5525;
+Desert:#C1B098;
+Cascades:#7A9DB0; */
+a.hiddenSlightly
+{
+  /* color: #7E8856; */
+  color: <?php echo $colorRainforest; ?>;
+  text-decoration:none;
+  font-weight:bold;
+  border:0px;
+  text-shadow: 1px 1px 1px <?php echo $colorCascades; ?>;
+  /* text-shadow: 1px 1px 1px <?php echo $colorDesert; ?>; */
+}
+a#fortyTwo
+{
+  /* color: #7E8856; */
+  /* text-decoration:none; border:0px; */
+  font-family: 'Tangerine', cursive;
+  font-weight:bold;
+  font-size:150%;
+}
+
+
+hr
+{
+  border:<?php echo $colorCascades; ?> solid 1px; /* color: cascades */
+}
+
+sup, sub
+{
+  vertical-align: baseline;
+  position: relative;
+  top: -0.4em;
+}
+sub
+{
+  top: 0.4em;
+}
+
+.bodyContent h1, .bodyContent h2, .bodyContent h3
+{
+/*   font-family: 'Tangerine', cursive;
+  font-size: 250%;
+  font-weight:700;
+  color: <?php echo $colorRainforest; ?>;
+  border-bottom: <?php echo $colorCascades; ?> solid 1px;
+ */  /* text-shadow: 2px 2px 4px #736046; */
+  /* filter: dropshadow(color=#736046, offx=2, offy=2); */
+}
+
+/*
+.bodyContent h1:before, .bodyContent h2:before, .bodyContent h3:before
+{
+  content:'➺ ';
+}
+*/
+table p
+{
+  margin-top:0px;
+}
+figure.imageBox
+{
+  /* position:relative; */
+  display: inline-block;
+  margin: 4px;
+  border: 3px <?php echo $colorRainforest; ?> double; /* Rainforest: #4B5525;*/
+  padding: 0px;
+  /* line-height: 0px; */
+  text-align:center;
+  font-size:0px; /* gets rid of the extra space after the img??? */
+}
+figure.right
+{
+    float: right;
+}
+figure.left
+{
+    float: left;
+}
+figure.imageBox.caption
+{
+  font-size:0.8em;
+}
+figure.imageBox.caption :after
+{
+  content:attr(title);
+}
+figure.imageBox a
+{
+  border:0;
+}
+
+.pictureBox
+{
+  width:100%;
+  text-align:center;
+}
+.pictureBox a
+{
+  border:0;
+}
+.pictureBox img
+{
+  margin-left:15px;
+  margin-right:15px;
+  display: inline-block;
+}
+.pictureBox img
+{
+  /* position:relative; */
+  margin-bottom: 4px;
+  margin-top: 4px;
+  border: 3px <?php echo $colorRainforest; ?> double; /* Rainforest: #4B5525;*/
+  padding: 0px;
+  /* line-height: 0px; */
+  text-align:center;
+  font-size:0px; /* gets rid of the extra space after the img??? */
+}
+.scavengerBox
+{
+  display: inline-block;
+  background-color: <?php echo $colorCascades; ?>; /* box color Cascades */
+  color: #eeeeee;
+  text-shadow: 1px -1px #777777, -1px 1px #777777, 1px 1px #777777, -1px -1px #777777;
+  border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  margin: 4px 0px;
+  padding: 4px 4px;
+}
+.scavengerBox:before
+{
+  content:'Scavenger Hunt Code: ';
+  /* content:"You've found a secret scavenger hunt code: "; */
+}
+
+  /* http://css-tricks.com/perfect-full-page-background-image/ */
+/* div .quest
+{
+  background: url('../resources/page_resources/natural_paper.png') no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  box-shadow: 0 0 20px tan;
+  margin: 40px;
+  padding: 20px 10px 10px 10px;
+}
+ */
+.quest
+{
+  box-shadow: 0 0 20px tan;
+  /* margin: 40px; */
+  margin-left:5%;
+  margin-right:5%;
+  margin-top:40px;
+  margin-bottom:40px;
+  padding: 20px 10px 10px 10px;
+  display: block;
+  position: relative;
+}
+/* http://css-tricks.com/snippets/css/transparent-background-images/ */
+.quest:after
+{
+  content: "";
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
+  background: <?php echo $colorDesert; ?> url('../resources/page_resources/natural_paper.png') no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  opacity: 0.7;
+  background-size: cover;
+} 
+
+
+.quest h1, .quest h2, .quest h3
+{
+  font-family: 'Tangerine', cursive;
+  font-weight:bold;
+  font-size:2.5em;
+  text-align:center;
+  margin:0; /* padding 0 on the div allows the margin to be negative. padding 10 makes the margin //huge// */
+}
+.quest h3
+{
+  font-size:1.75em;
+}
+
+
+
+
+
+
+
+
+input.error
+{ 
+	border:2px solid red; /*********************************************/
+}
+
+p.error
+{
+  color: red;
+}
+
+span.error
+{
+  color: red;
+}
+
+.isAttending
+{
+  border: 2px black;
+}
+
+.fancy
+{
+  font-family: 'Tangerine', sans-serif;
+  font-size:1.75em;
+}
+
+/*
+Rainforest: #4B5525;  green
+Desert:#C1B098;       tan
+Cascades:#7A9DB0;     blue
+*/
+#rsvpForm div
+{
+  /* min-height:1.7em; */
+  line-height:1.6em;
+  padding-top:3px;
+  border:1px dotted;
+  /* width:65%; */
+  margin-bottom:10px;
+  display: block;
+  position: relative;
+  z-index: 0;
+/*   background:<?php echo $colorRainforest; ?>; */
+}
+/* http://css-tricks.com/snippets/css/transparent-background-images/ */
+#rsvpForm div:after
+{
+  content: "";
+  opacity: 0.5;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
+}
+#rsvpForm div.attendeeBox:after
+{
+  background: <?php echo $colorRainforest; ?> url('../resources/page_resources/squairy_light_transparency.png');
+}
+#rsvpForm div.attendeeBoxBlue:after
+{
+  background: <?php echo $colorCascades; ?> url('../resources/page_resources/squairy_light_transparency.png');
+}
+#rsvpForm div.nonAttendeeBox:after
+{
+  background: <?php echo $colorDesert; ?> url('../resources/page_resources/squairy_light_transparency.png');
+}
+
+#rsvpForm div img
+{
+  width:20px;
+  height:20px;
+  margin:3px 3px -3px 3px;
+}
+
+input[type="button"]:enabled, input[type="submit"]:enabled
+{
+  font-family: 'Gentium Basic', serif;
+  font-size:1em;
+  padding-top:5px;
+  padding-bottom:1px;
+  color: <?php echo $colorRainforest; ?>; /* Rainforest: #4B5525;*/
+  background-color: <?php echo $colorDesert; ?>;
+  border-style:outset;
+}
+input[type="button"]:active, input[type="submit"]:active
+{
+  border-style:inset;
+}
+
+input[type="button"]:disabled, input[type="submit"]:disabled
+{
+  font-family: 'Gentium Basic', serif;
+  font-size:1em;
+  padding-top:5px;
+  padding-bottom:1px;
+  color:gray;
+  background-color:lightgray;
+  border-style:inset;
+}
+
+.lockedButton
+{
+  padding-left: 28px;
+  background-position: 5px 3px;
+  background-image:url('../resources/icons/lock_closed.png');
+  background-size:1.2em 1.2em;
+  background-repeat:no-repeat;
+}
+
+.unlockedButton
+{
+  padding-left: 28px;
+  background-position: 5px 3px;
+  background-image:url('../resources/icons/lock_open.png');
+  background-size:1.2em 1.2em;
+  background-repeat:no-repeat;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+ul.noBullet
+{
+  list-style:none;
+}
+
+table.formTable tr > td:first-child
+{
+  text-align:right;
+}
+
+/* http://css-tricks.com/css-transparency-settings-for-all-broswers/ */
+.imgGray
+{
+	zoom: 1;
+	filter: alpha(opacity=30);
+	opacity: 0.3;
+}
+.imgBlack
+{
+	zoom: 1;
+	filter: alpha(opacity=100);
+	opacity: 1.0
+}
+
+.noUnderline
+{
+  text-decoration:none;
+  border:0px;
+}
+
+
+
+
+/*
+Rainforest: #4B5525;  green
+Desert:#C1B098;       tan
+Cascades:#7A9DB0;     blue
+
+Dim Rainforest: #838E56;  green
+              or 6A7834
+Dim Desert:#CCC5BA;       tan
+Dim Cascades:#A6B6Be;     blue
+*/
+table#tableUsers
+{
+  border-collapse:collapse;
+}
+#tableUsers td
+{
+border:solid 1px black;
+/*   border-left:solid 1px black;
+  border-right:solid 1px black; */
+  border-collapse:collapse;
+}
+#tableUsers thead td
+{
+  border:solid 1px black;
+}
+.rowHead
+{
+  color: <?php echo $colorRainforest; ?>;
+  background: <?php echo $colorDesert; ?>;
+  font-weight:bold;
+}
+.rowHead a
+{
+  color: <?php echo $colorRainforest; ?>;
+}
+.rowBlue
+{
+  color: #000000;
+  background: <?php echo $colorDimCascades; ?>;
+}
+.rowGreen
+{
+  color: #CCCCCC;
+  background: <?php echo $colorDimRainforest; ?>;
+}
+.rowGreen .cellNegative
+{
+  background: <?php echo $colorRainforest; ?>;
+}
+.rowBlue .cellNegative
+{
+  background: <?php echo $colorCascades; ?>;
+}
