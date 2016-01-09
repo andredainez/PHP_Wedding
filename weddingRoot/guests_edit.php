@@ -1,11 +1,13 @@
 <?php
 
+//TODO: Total duplication between guests_edit.php and guests_new.php...needs to be reduced into one file.
+
 /*
 notes:
 
 for existing attendees, array of controls names will match db fields, like "isAttending" and "isPlusOne", and index [] will match attendeeID
   else, it will be array of "new_isAttending", "new_isPlusOne", and index [] will simply be numeric
-      I know i'm mixing underscores and camel-case, but I'll sacrifice the style for readablity in this case. Shrug.
+      I know i'm mixing underscores and camel-case, but I'll sacrifice the style for readability in this case. Shrug.
 
 */
 
@@ -113,32 +115,6 @@ for existing attendees, array of controls names will match db fields, like "isAt
     }
   }
   
-  
-  
-  // function changePlusOneStyle(attID)
-  // {
-    // var plusImage = document.getElementById("imgPlusOne[" + attID + "]");
-    // if (plusImage.className == "imgGray")
-      // plusImage.className = "imgBlack";
-    // else
-      // plusImage.className = "imgGray";
-  // }
-  // function changeChildStyle(attID)
-  // {
-    // var childImage = document.getElementById("imgChild[" + attID + "]");
-    // if (childImage.className == "imgGray")
-      // childImage.className = "imgBlack";
-    // else
-      // childImage.className = "imgGray";
-  // }
-  // function changeInfantStyle(attID)
-  // {
-    // var infantImage = document.getElementById("imgInfant[" + attID + "]");
-    // if (infantImage.className == "imgGray")
-      // infantImage.className = "imgBlack";
-    // else
-      // infantImage.className = "imgGray";
-  //}
 
   //http://viralpatel.net/blogs/dynamically-add-remove-rows-in-html-table-using-javascript/
   function addAttRow()

@@ -1,4 +1,7 @@
 <?php
+
+//TODO: PHP MySQL PDO: http://php.net/manual/en/ref.pdo-mysql.php
+
 class model
 {
   private $dbHostname;

@@ -2,8 +2,6 @@
 
 require_once('classModel.inc');
 
-//TODO: PHP MySQL PDO: http://php.net/manual/en/ref.pdo-mysql.php
-
 class usersDatabase
 {
   private $connectedModel;

@@ -7,7 +7,7 @@
       <?php
       if (!isset($_SESSION['login']))
       {?>
-        <?php // <li><a href="login.php">Invitation Login</a></li> ?>
+        <li><a href="login.php">Invitation Login</a></li>
         <?php
       }
       if (isset($_SESSION['login']) && $_SESSION['login'] >= 1)
