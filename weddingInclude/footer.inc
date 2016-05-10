@@ -4,7 +4,7 @@
 <footer>
   <div class="copyrightFooter">
     <hr />
-    <p>Design &copy; 2013 <a href="http://www.lindseyrosedesigns.com">Lindsey Bistline</a> &bull; &copy; 2013 Allison Bistline &amp; Andrew East</p>
+    <p>Design &copy; 2013 <a href="http://thefloralbadger.com/">Lindsey Bistline</a> &bull; &copy; 2013 Allison Bistline &amp; Andrew East</p>
   </div>
 </footer>
 
